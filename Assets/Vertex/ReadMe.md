@@ -1,7 +1,23 @@
 Vertex Shaders
 
+- Dados da malha
+  - em um vertice é possivel colher muitas informações além de apenas a posição do vertice, como:
+    - Position
+      - posição do vertice com relação ao ponto 0 da malha
+    - Normal
+      - direção do vetor de normal
+    - Tangent
+      - direção do vetor de tangente
+    - Color
+      - cor do vertice
+    - TexCoord0
+      - geralmente usada para guarda o valor da UV
+    - TexCoord1 até TexCoord3
+      - usados para guardar as mais diversas informações como Fog
+    - mais informações https://docs.unity3d.com/ScriptReference/Rendering.VertexAttribute.html
+  - o subprograma de vertice é responsavel por calcular e repassar os dados necessarios para a função de Fragment, porém, nele também é possivel modificar as posições dos vertices podendo criar pequenas animações procedurais como movimento de ondas no oceano.
 - transformações matriciais
-- posições locais e globais
-- normais
-- cores e informações adicionais no vértice
-- structs de dados usadas e retornadas pela função de vértices
+  - para que uma malha possa aparecer no monitor uma serie de operações precisam ser feitas, mas em certos casos é preciso algum desses dados como:
+    - posição local
+    - posição global ou no mundo
+      - muito usada em mapeamento de textura triplanar
