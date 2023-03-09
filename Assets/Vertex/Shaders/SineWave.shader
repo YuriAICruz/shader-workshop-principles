@@ -1,14 +1,11 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
-Shader "Unlit/Temp"
+Shader "ShaderWorkshop/Vertex/SineWave"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Color("Color", Color) = (0.38,0.26,0.98,1.0)
         _Size("Size", float) = 0.1
+        _Speed("Speed", float) = 0.1
+        _Length("Length", float) = 0.1
     }
 
     SubShader
@@ -16,13 +13,14 @@ Shader "Unlit/Temp"
         Tags { "RenderType"="Opaque" }
         LOD 100
 
+		Cull Off
+
         Pass
         {
             CGPROGRAM
             #pragma target 4.0
 
             #pragma vertex vert
-            #pragma geometry geom
             #pragma fragment frag
 
             #include "UnityCG.cginc"
@@ -42,25 +40,22 @@ Shader "Unlit/Temp"
                 float4 vpos : TEXCOORD2;
                 fixed4 color : COLOR;
             };
-            
-            struct g2f {
-                float4 pos : SV_POSITION;
-                float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
-            };
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            fixed4 _Color;
             float _Size;
+            float _Speed;
+            float _Length;
 
             v2f vert (appdata v)
             {
                 v2f o;
                 o.vertex = v.vertex;
-                //o.vertex.xyz += float3(o.vertex.x, cos(o.vertex.z + _Time.z), o.vertex.z)*0.2;
-                o.vertex = UnityObjectToClipPos(o.vertex);
                 o.wpos = mul (unity_ObjectToWorld, v.vertex).xyz;
+                o.vertex = UnityObjectToClipPos(o.vertex);
+
+                o.vertex.xyz += float3(0, sin(o.wpos.x * 3.14 * _Length + (_Time.z*_Speed))+cos(o.wpos.z * 3.14 * _Length + (_Time.z*_Speed)), 0)*_Size;
+
                 o.vpos = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.color = 1;
@@ -71,19 +66,6 @@ Shader "Unlit/Temp"
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
                 return col;
-            }
-            
-            [maxvertexcount(4)]
-            void geom(point v2f IN[1], inout TriangleStream<g2f> outStream)
-            {
-                float dx = _Size;
-                float dy = _Size * _ScreenParams.x / _ScreenParams.y;
-                g2f OUT;
-                OUT.pos = IN[0].vpos + float4(-dx, dy,0,0); OUT.uv=float2(0,0); OUT.color = IN[0].color; outStream.Append(OUT);
-                OUT.pos = IN[0].vpos + float4( dx, dy,0,0); OUT.uv=float2(1,0); OUT.color = IN[0].color; outStream.Append(OUT);
-                OUT.pos = IN[0].vpos + float4(-dx,-dy,0,0); OUT.uv=float2(0,1); OUT.color = IN[0].color; outStream.Append(OUT);
-                OUT.pos = IN[0].vpos + float4( dx,-dy,0,0); OUT.uv=float2(1,1); OUT.color = IN[0].color; outStream.Append(OUT);
-                outStream.RestartStrip();
             }
             ENDCG
         }
