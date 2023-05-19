@@ -47,6 +47,7 @@ Shader "ShaderWorkshop/Fragment/Voronoise"
                 return frac(sin(q)*43758.5453);
             }
 
+            // function got on shadertoy shader from Inigo Quilez https://www.shadertoy.com/view/Xd23Dh
             float voronoise( in float2 p )
             {
                 float k = 1.0+63.0*pow(1.0-_Definition,6.0);
