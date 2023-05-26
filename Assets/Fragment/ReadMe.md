@@ -19,6 +19,7 @@ Também chamados de pixel shaders, é o processo responsavel por trazer a esteti
     - [Tags](https://docs.unity3d.com/Manual/SL-SubShaderTags.html)
     - [LOD](https://docs.unity3d.com/Manual/SL-ShaderLOD.html)
   - vetores
+    - [types and precision](https://docs.unity3d.com/Manual/SL-DataTypesAndPrecision.html)
     - float2 float3 e float4, são arrays com o tamanho descrito no fim do nome, eles podem ser acessado de diversas formas.
     - Exemplo o segundo indice de um float2.
       - value[1] ou value.y ou value.g
