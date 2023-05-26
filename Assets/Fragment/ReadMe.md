@@ -14,6 +14,10 @@ Também chamados de pixel shaders, é o processo responsavel por trazer a esteti
     - uv ou texture coordinate, é um dos principais dados que são fornecidos da malha, pois dele é possivel mapear uma textura de forma controlada.
   - Existem muitos mais dados que podem ser extraidos da malha, mas serão vistos com mais detalhes durante a materia de Vertex Shader
 - Semanticas [[Doc ShaderLab](https://docs.unity3d.com/Manual/SL-Reference.html)]
+  - Properties [[Cheat Sheet](https://gist.github.com/Split82/d1651403ffb05e912d9c3786f11d6a44)] [[Material Properties](https://github.com/YuriAICruz/Unity-ShaderLib/blob/master/Shaders/StandardRP/MaterialPropertyDrawer.shader)]
+  - SubShader
+    - [Tags](https://docs.unity3d.com/Manual/SL-SubShaderTags.html)
+    - [LOD](https://docs.unity3d.com/Manual/SL-ShaderLOD.html)
   - vetores
     - float2 float3 e float4, são arrays com o tamanho descrito no fim do nome, eles podem ser acessado de diversas formas.
     - Exemplo o segundo indice de um float2.
