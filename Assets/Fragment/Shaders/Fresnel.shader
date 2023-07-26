@@ -59,10 +59,14 @@ Shader "ShaderWorkshop/Fragment/Fresnel"
             fixed4 frag (v2f i) : SV_Target
             {
                 float fresnel = saturate(_FresnelBias + pow(dot(i.viewDir, i.normal),_FresnelPower) * _FresnelScale);
+
+                return lerp(_FresnelColor,_Color, fresnel);
+                
                 float4 fColor = (1-fresnel) * _FresnelColor;
                 float4 color = fresnel * _Color;
 
-                return color + fColor;                
+                
+                return color + fColor;
             }
             ENDCG
         }

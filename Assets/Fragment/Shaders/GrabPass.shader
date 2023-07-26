@@ -67,8 +67,10 @@ Shader "ShaderWorkshop/Fragment/GrabPass"
             fixed4 frag (v2f i) : SV_Target
             {
                 float fresnel = saturate(_FresnelBias + pow(dot(i.viewDir, i.normal),_FresnelPower) * _FresnelScale);
+                
                 float3 cr = pow(cross(i.viewDir, i.normal), 2);
                 float4 zoom = saturate(float4(cr.x,cr.y,cr.z,0) * fresnel);
+                
                 fixed4 col = tex2Dproj(_MainTex, i.grabPos - zoom*_Refraction);
                 
                 return lerp(_FresnelColor,col,fresnel);

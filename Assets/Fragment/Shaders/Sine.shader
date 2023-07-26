@@ -18,7 +18,7 @@ Shader "ShaderWorkshop/Fragment/Sine"
             #pragma fragment frag
 
             #include "UnityCG.cginc"
-
+            
             struct appdata
             {
                 float4 vertex : POSITION;
@@ -46,7 +46,7 @@ Shader "ShaderWorkshop/Fragment/Sine"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = sin(_ColorX * i.uv.x*_Size) + (1-cos(_ColorY * i.uv.y*_Size));
-                return col;
+                return saturate(col);
             }
             ENDCG
         }
