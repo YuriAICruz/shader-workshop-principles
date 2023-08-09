@@ -2,6 +2,7 @@ Shader "ShaderWorkshop/Vertex/VertexColor"
 {
     Properties
     {
+        _Color ("Color", Color) = (1,1,1,1)
     }
 
     SubShader
@@ -12,8 +13,6 @@ Shader "ShaderWorkshop/Vertex/VertexColor"
         Pass
         {
             CGPROGRAM
-            #pragma target 4.0
-
             #pragma vertex vert
             #pragma fragment frag
 
@@ -23,14 +22,14 @@ Shader "ShaderWorkshop/Vertex/VertexColor"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
+                float4 color : COLOR;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                fixed4 color : COLOR;
+                float4 color : COLOR;
             };
 
             v2f vert (appdata v)
@@ -42,9 +41,11 @@ Shader "ShaderWorkshop/Vertex/VertexColor"
                 return o;
             }
 
+            float4 _Color;
+
             fixed4 frag (v2f i) : SV_Target
             {
-                return i.color;
+                return saturate(_Color + i.color);
             }
             ENDCG
         }

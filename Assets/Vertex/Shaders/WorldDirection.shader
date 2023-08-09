@@ -1,5 +1,3 @@
-// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
-
 Shader "ShaderWorkshop/Vertex/WorldDirection"
 {
     Properties
@@ -12,9 +10,9 @@ Shader "ShaderWorkshop/Vertex/WorldDirection"
         _UpPower("Upper Power", float) = 1
         
         [Space]
-        _DownColor("Botton Color", Color) = (1,1,1,1)
-        _DownIntensity("Botton Intensity", float) = 1
-        _DownPower("Botton Power", float) = 1
+        _LowerColor("Lower Color", Color) = (1,1,1,1)
+        _LowerIntensity("Lower Intensity", float) = 1
+        _LowerPower("Lower Power", float) = 1
         
         [KeywordEnum(OFF, ON)] LIGHT ("Light", float) = 0
     }
@@ -27,8 +25,6 @@ Shader "ShaderWorkshop/Vertex/WorldDirection"
         Pass
         {
             CGPROGRAM
-            #pragma target 2.0
-
             #pragma vertex vert
             #pragma fragment frag
 
@@ -53,13 +49,13 @@ Shader "ShaderWorkshop/Vertex/WorldDirection"
                 float3 wpos : TEXCOORD3;
             };
 
-            float4 _DownColor;
+            float4 _LowerColor;
             float4 _Color;
             float4 _UpColor;
             float _UpIntensity;
             float _UpPower;
-            float _DownIntensity;
-            float _DownPower;
+            float _LowerIntensity;
+            float _LowerPower;
 
             v2f vert (appdata v)
             {
@@ -75,13 +71,8 @@ Shader "ShaderWorkshop/Vertex/WorldDirection"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // World Normal Debug
-                // return float4(i.wNormal,1);
-
-                
-
                 float4 color = lerp(_Color, _UpColor, saturate(pow(saturate(i.wNormal.y)*_UpIntensity, _UpPower)));
-                color = lerp(color, _DownColor, saturate(pow(saturate((1-i.wNormal.y) * _DownIntensity), _DownPower)));
+                color = lerp(color, _LowerColor, saturate(pow(saturate((1-i.wNormal.y) * _LowerIntensity), _LowerPower)));
 
                 #if LIGHT_ON
                 

@@ -1,15 +1,14 @@
-// Upgrade NOTE: replaced '_World2Object' with 'unity_WorldToObject'
-
 Shader "ShaderWorkshop/Vertex/CelShaded"
 {
     Properties
     {
         _RampTexture ("Ramp", 2D) = "white"{}
         _Distance("Distance", float) = 1
-        _Width("Width", float) = 1
+
         _ColorA("Color A", Color) = (1,1,1,1)
         _ColorB("Color B", Color) = (1,1,1,1)
-        _ColorOutline("Color Outline", Color) = (0,0,0,1)
+
+        _ColorOutline("Outline Color", Color) = (0,0,0,1)
     }
 
     SubShader
@@ -24,8 +23,6 @@ Shader "ShaderWorkshop/Vertex/CelShaded"
             Cull Front
             
             CGPROGRAM
-            #pragma target 2.0
-
             #pragma vertex vert
             #pragma fragment frag
 
@@ -70,8 +67,6 @@ Shader "ShaderWorkshop/Vertex/CelShaded"
         Pass
         {
             CGPROGRAM
-            #pragma target 2.0
-
             #pragma vertex vert
             #pragma fragment frag
 
@@ -94,8 +89,6 @@ Shader "ShaderWorkshop/Vertex/CelShaded"
 
             sampler2D _RampTexture;
             float4 _RampTexture_ST;
-            float _Distance;
-            float _Width;
             float4 _ColorA;
             float4 _ColorB;
 
@@ -113,7 +106,7 @@ Shader "ShaderWorkshop/Vertex/CelShaded"
             {
                 float3 light = clamp(Lambert(i.normal),0.01,0.99);
                 float intensity = (light.r+light.g+light.b)/3;
-                fixed ramp = tex2D(_RampTexture, float2(intensity, 0)).r;
+                float ramp = tex2D(_RampTexture, float2(intensity, 0)).r;
                 float4 col = lerp(_ColorB, _ColorA, ramp);
                 return col;
             }

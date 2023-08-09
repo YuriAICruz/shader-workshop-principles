@@ -2,6 +2,7 @@ Shader "ShaderWorkshop/Vertex/CustomVertexData"
 {
     Properties
     {
+        [KeywordEnum(A, B)] DATA ("DATA", float) = 0
     }
 
     SubShader
@@ -12,10 +13,10 @@ Shader "ShaderWorkshop/Vertex/CustomVertexData"
         Pass
         {
             CGPROGRAM
-            #pragma target 4.0
-
             #pragma vertex vert
             #pragma fragment frag
+            
+            #pragma multi_compile DATA_A DATA_B
 
             #include "UnityCG.cginc"
 
@@ -23,18 +24,18 @@ Shader "ShaderWorkshop/Vertex/CustomVertexData"
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
-                fixed4 color : COLOR;
-                float2 data1 : TEXCOORD1;
-                float2 data2 : TEXCOORD2;
+                float4 color : COLOR;
+                float3 dataA : TEXCOORD1;
+                float3 dataB : TEXCOORD2;
             };
 
             struct v2f
             {
                 float2 uv : TEXCOORD0;
                 float4 vertex : SV_POSITION;
-                fixed4 color : COLOR;
-                fixed2 data1 : TEXCOORD2;
-                fixed2 data2 : TEXCOORD3;
+                float4 color : COLOR;
+                float3 dataA : TEXCOORD2;
+                float3 dataB : TEXCOORD3;
             };
 
             v2f vert (appdata v)
@@ -43,14 +44,22 @@ Shader "ShaderWorkshop/Vertex/CustomVertexData"
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.color = v.color;
                 o.uv = v.uv;
-                o.data1 = v.data1;
-                o.data2 = v.data2;
+                o.dataA = v.dataA;
+                o.dataB = v.dataB;
                 return o;
             }
 
             fixed4 frag (v2f i) : SV_Target
             {
-                return float4(i.data1.rg, i.data2.rg);
+                #if DATA_A
+                return float4(i.dataA.rgb, 1);
+                #endif
+                
+                #if DATA_B
+                return float4(i.dataB.rgb, 1);
+                #endif
+
+                return 0;
             }
             ENDCG
         }
