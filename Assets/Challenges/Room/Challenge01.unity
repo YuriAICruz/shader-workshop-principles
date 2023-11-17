@@ -854,6 +854,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022880807}
     m_Modifications:
+    - target: {fileID: 6521375613829481632, guid: 8dca2d30672a19d4cb21cd9425ea9014, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c7458d31022ed84b8a5ae02667c98df, type: 2}
     - target: {fileID: 7174974315299898192, guid: 8dca2d30672a19d4cb21cd9425ea9014, type: 3}
       propertyPath: m_Name
       value: FlowerB (1)
@@ -987,6 +991,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1022880807}
     m_Modifications:
+    - target: {fileID: 6521375613829481632, guid: 8dca2d30672a19d4cb21cd9425ea9014, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 5c7458d31022ed84b8a5ae02667c98df, type: 2}
     - target: {fileID: 7174974315299898192, guid: 8dca2d30672a19d4cb21cd9425ea9014, type: 3}
       propertyPath: m_Name
       value: FlowerB (2)
