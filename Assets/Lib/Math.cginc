@@ -47,3 +47,26 @@ float Noise(in float2 p)
 
     return a.x/a.y;
 }
+
+float Noise(in float3 p)
+{
+    float3 p0 = floor(p);
+    float3 d = frac(p);
+
+    float3 w = d * d * (3.0 - 2.0 * d);
+
+    float lerp1 = lerp(
+        lerp(dot(hash3(p0), d), dot(hash3(p0 + float3(1, 0, 0)), d - float3(1, 0, 0)), w.x),
+        lerp(dot(hash3(p0 + float3(0, 1, 0)), d - float3(0, 1, 0)),
+             dot(hash3(p0 + float3(1, 1, 0)), d - float3(1, 1, 0)), w.x),
+        w.y);
+
+    float lerp2 = lerp(
+        lerp(dot(hash3(p0 + float3(0, 0, 1)), d - float3(0, 0, 1)),
+             dot(hash3(p0 + float3(1, 0, 1)), d - float3(1, 0, 1)), w.x),
+        lerp(dot(hash3(p0 + float3(0, 1, 1)), d - float3(0, 1, 1)),
+             dot(hash3(p0 + float3(1, 1, 1)), d - float3(1, 1, 1)), w.x),
+        w.y);
+
+    return lerp(lerp1, lerp2, w.z);
+}
