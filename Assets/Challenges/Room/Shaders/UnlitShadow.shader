@@ -16,8 +16,6 @@ Shader "Unlit/UnlitShadow"
         LIGHTING_COORDS(0, 1)
     };
 
-    half4 _Color;
-
     v2f_shadow vert_shadow(appdata_full v)
     {
         v2f_shadow o;
@@ -29,7 +27,7 @@ Shader "Unlit/UnlitShadow"
     half4 frag_shadow(v2f_shadow IN) : SV_Target
     {
         half atten = LIGHT_ATTENUATION(IN);
-        return half4(_Color.rgb, lerp(_Color.a, 0, atten));
+        return atten;
     }
     ENDCG
 
