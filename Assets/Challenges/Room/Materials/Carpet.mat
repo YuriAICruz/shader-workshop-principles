@@ -34,6 +34,7 @@ Material:
     - _NoiseMax: 1
     - _NoiseMin: 0
     - _OcclusionBias: 0
+    - _ShadowIntensity: 0.3
     - _ShellCount: 16
     - _ShellDistanceAttenuation: 0.1
     - _ShellIndex: 0
@@ -42,6 +43,7 @@ Material:
     - _Thickness: 1
     m_Colors:
     - _Color: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+    - _ShadowColor: {r: 0, g: 0, b: 0, a: 1}
     - _ShellColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShellDirection: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
