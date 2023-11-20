@@ -34,7 +34,7 @@ Material:
     - _NoiseMax: 1
     - _NoiseMin: 0
     - _OcclusionBias: 0
-    - _ShadowIntensity: 0.3
+    - _ShadowIntensity: 0.1
     - _ShellCount: 16
     - _ShellDistanceAttenuation: 0.1
     - _ShellIndex: 0

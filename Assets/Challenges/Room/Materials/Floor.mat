@@ -92,7 +92,7 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _ShadowIntensity: 0.6
+    - _ShadowIntensity: 0.25
     - _Shininess: 0.619
     - _Smoothness: 0.35
     - _SmoothnessTextureChannel: 0
