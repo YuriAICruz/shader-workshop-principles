@@ -3,6 +3,7 @@ Shader "Unlit/Foliage"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _CutoutTex ("Cutout Texture", 2D) = "white" {}
         [Range(0,1)]
         _Cutout ("Cutout", Float) = 0
     }
@@ -38,6 +39,8 @@ Shader "Unlit/Foliage"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            sampler2D _CutoutTex;
+            float4 _CutoutTex_ST;
             float _Cutout;
 
             v2f vert(appdata v)
@@ -50,9 +53,10 @@ Shader "Unlit/Foliage"
 
             fixed4 frag(v2f i) : SV_Target
             {
+                fixed4 cutout = tex2D(_CutoutTex, i.uv);
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                if (col.a <= _Cutout)
+                if (cutout.a <= _Cutout)
                 {
                     discard;
                 }
