@@ -5,6 +5,7 @@ Shader "Unlit/SubsurfaceScatering"
         _MainTex ("Texture", 2D) = "white" {}
         _Intensity ("Intensity", Float) = 1
         _Pow ("Pow", Float) = 1
+        _Strength ("Strength", Float) = 0.5
         [Range(0,1)]
         _Min ("Min", Float) = 0.1
     }
@@ -47,13 +48,14 @@ Shader "Unlit/SubsurfaceScatering"
             float _Intensity;
             float _Pow;
             float _Min;
+            float _Strength;
 
             v2f vert(appdata v)
             {
                 v2f o;
                 o.color = v.color;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.worldNormal = normalize(mul(unity_ObjectToWorld, v.normal));
+                o.worldNormal = normalize(mul((float3x3)unity_ObjectToWorld, float4( v.normal, 0.0 )));
                 o.viewDir = normalize(mul((float3x3)unity_ObjectToWorld, _WorldSpaceCameraPos));
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
                 o.grabPos = ComputeGrabScreenPos(o.vertex);
@@ -64,8 +66,10 @@ Shader "Unlit/SubsurfaceScatering"
             {
                 fixed4 col = tex2D(_MainTex, i.uv);
 
-                float view = saturate(pow(dot(i.viewDir, _WorldSpaceLightPos0), _Pow) * 0.5);
+                float view = saturate(pow(dot(i.viewDir, _WorldSpaceLightPos0), _Pow) * _Strength);
                 float light = saturate(dot(i.worldNormal, -_WorldSpaceLightPos0.xyz)) * _Intensity;
+                float normal = saturate(dot(i.viewDir, -i.worldNormal));
+                view = normal * view;//lerp(view, normal, 0.2);
                 return col + (lerp(0, view, i.color.r) + i.color.r * _Min) * _Intensity;
             }
             ENDCG
