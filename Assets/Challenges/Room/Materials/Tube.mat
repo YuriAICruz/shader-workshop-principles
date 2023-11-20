@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: FlowerB
+  m_Name: Tube
   m_Shader: {fileID: 4800000, guid: d2f59cef9c7757e4aa843176fe46f4a7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
