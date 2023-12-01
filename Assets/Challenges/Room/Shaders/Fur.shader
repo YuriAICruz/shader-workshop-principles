@@ -15,6 +15,7 @@ Shader "Challenge01/Fur"
 
     CGINCLUDE
     #include "Assets/Lib/Math.cginc"
+    #include "Assets/Lib/Lightning.cginc"
     #include "UnityCG.cginc"
     #include "AutoLight.cginc"
 
@@ -67,6 +68,7 @@ Shader "Challenge01/Fur"
     {
         v2f o;
         o.pos = UnityObjectToClipPos(v.vertex);
+        o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
         TRANSFER_VERTEX_TO_FRAGMENT(o);
         return o;
     }

@@ -10,7 +10,8 @@ Shader "Unlit/UnlitShadow"
     CGINCLUDE
     #include "UnityCG.cginc"
     #include "AutoLight.cginc"
-
+    #include "Assets/Lib/Lightning.cginc"
+    
     struct v2f_shadow {
         float4 pos : SV_POSITION;
         LIGHTING_COORDS(0, 1)
